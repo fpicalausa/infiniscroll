@@ -248,13 +248,11 @@ THE SOFTWARE.
         }
 
         function startDrag(pageX, pageY) {
-            console.log('Start dragging from ' + pageX + ", " + pageY);
             self.parameters.dragStartX = pageX;
             self.parameters.dragStartY = pageY;
         }
 
         function stopDrag() {
-            console.log('Stop dragging');
             var oldBounds = {
                 minTileX: self.parameters.minTileX,
                 maxTileX: self.parameters.maxTileX,
@@ -267,10 +265,8 @@ THE SOFTWARE.
         }
 
         function dragging(pageX, pageY) {
-            console.log('Dragging from ' + pageX + ", " + pageY);
             self.parameters.offsetX = pageX - self.parameters.dragStartX;
             self.parameters.offsetY = pageY - self.parameters.dragStartY;
-            console.log(' -> offset: ' + self.parameters.offsetX + ", " + self.parameters.offsetY);
 
             var left = (self.parameters.containerLeft + self.parameters.offsetX),
                 top  = (self.parameters.containerTop  + self.parameters.offsetY);
