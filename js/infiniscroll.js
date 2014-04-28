@@ -126,7 +126,7 @@ THE SOFTWARE.
             bindTileToLocation(tile, x, y);
             tile.css({ "background": "none" });
             tile.data("loaded", true);
-            self.options.loader(tile, x, y, loadQueuedTile);
+            self.options.loader(tile, x, y);
 
             return tile;
         }
@@ -143,13 +143,14 @@ THE SOFTWARE.
             }
         }
 
-        function loadQueuedTile() {
+        function loadQueuedTiles() {
             var loadable = getLoadableTileFromQueue(self.loadQueue);
 
-            if (loadable) {
+            while (loadable) {
                 self.$tilesContainer.append(
                     loadTile(loadable)
                 );
+                loadable = getLoadableTileFromQueue(self.loadQueue);
             }
         }
 
@@ -244,7 +245,7 @@ THE SOFTWARE.
             // Find all tiles to be loaded.
             loadNewTiles(unbound, self.parameters, oldBounds);
 
-            loadQueuedTile();
+            loadQueuedTiles();
         }
 
         function startDrag(pageX, pageY) {
@@ -319,7 +320,7 @@ THE SOFTWARE.
         enqueueInitialLoaders();
         registerScrollHandlers();
 
-        loadQueuedTile();
+        loadQueuedTiles();
 
         self.$target.append(self.$tilesContainer);
 
@@ -354,7 +355,7 @@ THE SOFTWARE.
         tileHeight: 200,
         initialX: 0,
         initialY: 0,
-        loader: function (target, x, y, cb) {
+        loader: function (target, x, y) {
             $(target).text("(" + x + "," + y + ")");
             $(target).css({
                 userSelect: 'none',
@@ -362,8 +363,6 @@ THE SOFTWARE.
                 textAlign: 'center',
                 border: '1px solid #bbb'
             });
-
-            cb();
         }
     };
 }(jQuery, document));

@@ -14,9 +14,8 @@ And adding some JavaScript to load tiles:
     $("#scrollable").infiniScroll({
         tileWidth: 200, //px
         tileHeight: 200, //px
-        loader: function(tile, x, y, callback) {
+        loader: function(tile, x, y) {
             $(tile).text("x=" + x + ", y=" + y);
-            callback();
         }
     });
 
